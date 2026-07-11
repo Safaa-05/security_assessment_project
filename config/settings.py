@@ -20,7 +20,7 @@ SECRET_KEY = 'django-insecure-(*z(rjfsshdm3#5w&7#(%q&icr+@0wv&yw4!+#un-ci$mbos7v
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # ------------------------------------------------------------
@@ -62,6 +62,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    ...
 ]
 
 
@@ -138,6 +140,11 @@ USE_TZ = True
 # ------------------------------------------------------------
 # Static & Media Files
 # ------------------------------------------------------------
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+STATICFILES_STORAGE = (
+    "whitenoise.storage.CompressedManifestStaticFilesStorage"
+)
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
