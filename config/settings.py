@@ -98,11 +98,23 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # ------------------------------------------------------------
 # Database
 # ------------------------------------------------------------
-DATABASES = {
-    "default": dj_database_url.config(
-        default=config("DATABASE_URL")
-    )
-}
+DATABASE_URL = config("DATABASE_URL", default=None)
+
+if DATABASE_URL:
+    DATABASES = {
+        "default": dj_database_url.parse(DATABASE_URL)
+    }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": "security_assessment_db",
+            "USER": "postgres",
+            "PASSWORD": "safaa@123",
+            "HOST": "localhost",
+            "PORT": "5432",
+        }
+    }
 
 
 # ------------------------------------------------------------
