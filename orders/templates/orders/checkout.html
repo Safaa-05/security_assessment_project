@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h2 class="mb-4">Checkout</h2>
+
+    <div class="card shadow p-4">
+
+        <h4>Order Summary</h4>
+
+        <table class="table">
+
+            <tr>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Price</th>
+            </tr>
+
+            {% for item in cart_items %}
+
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>₹{{ item.product.price }}</td>
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+        <h4 class="text-success">
+            Total : ₹{{ total }}
+        </h4>
+
+        <a href="{% url 'place_order' %}"
+           class="btn btn-success mt-3">
+
+            Place Order
+
+        </a>
+
+        <a href="{% url 'cart' %}"
+           class="btn btn-secondary mt-2">
+
+            Back to Cart
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

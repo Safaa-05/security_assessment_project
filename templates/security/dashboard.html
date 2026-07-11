@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+
+{% block title %}Security Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h1 class="text-center mb-2">
+        Penetration Testing Dashboard
+    </h1>
+
+    <p class="text-center text-muted mb-4">
+        Perform basic security assessment of the web application.
+    </p>
+
+    <!-- View Scan History Button -->
+    <div class="text-center mb-5">
+
+        <a href="{% url 'security_history' %}"
+           class="btn btn-dark btn-lg">
+
+            View Scan History
+
+        </a>
+
+    </div>
+
+    <!-- Dashboard Statistics -->
+    <div class="row text-center mb-5">
+
+        <div class="col-md-3">
+            <div class="card shadow border-0 bg-primary text-white">
+                <div class="card-body">
+                    <h5>Total Tests</h5>
+                    <h2>{{ stats.total }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow border-0 bg-success text-white">
+                <div class="card-body">
+                    <h5>Passed</h5>
+                    <h2>{{ stats.passed }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow border-0 bg-danger text-white">
+                <div class="card-body">
+                    <h5>Failed</h5>
+                    <h2>{{ stats.failed }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow border-0 bg-warning">
+                <div class="card-body">
+                    <h5>Risk Level</h5>
+                    <h2>{{ stats.risk }}</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Security Score -->
+    <div class="card shadow mb-5">
+
+        <div class="card-body">
+
+            <h4>Overall Security Score</h4>
+
+            <div class="progress mt-3" style="height:30px;">
+
+                <div class="progress-bar bg-success"
+                     role="progressbar"
+                     style="width:75%;">
+
+                    75%
+
+                </div>
+
+            </div>
+
+            <small class="text-muted">
+                3 out of 4 security tests passed.
+            </small>
+
+        </div>
+
+    </div>
+
+    <!-- Security Tests -->
+    <div class="row">
+
+        <!-- SQL Injection -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow h-100">
+
+                <div class="card-body text-center">
+
+                    <h3>SQL Injection</h3>
+
+                    <p>
+                        Check login and forms for SQL Injection vulnerabilities.
+                    </p>
+
+                    <a href="{% url 'security_scan' %}?test=sqli"
+                       class="btn btn-danger">
+                        Run Test
+                    </a>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- XSS -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow h-100">
+
+                <div class="card-body text-center">
+
+                    <h3>Cross Site Scripting (XSS)</h3>
+
+                    <p>
+                        Detect reflected and stored XSS vulnerabilities.
+                    </p>
+
+                    <a href="{% url 'security_scan' %}?test=xss"
+                       class="btn btn-warning">
+                        Run Test
+                    </a>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- CSRF -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow h-100">
+
+                <div class="card-body text-center">
+
+                    <h3>CSRF Protection</h3>
+
+                    <p>
+                        Verify CSRF protection on forms.
+                    </p>
+
+                    <a href="{% url 'security_scan' %}?test=csrf"
+                       class="btn btn-info">
+                        Run Test
+                    </a>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Authentication -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow h-100">
+
+                <div class="card-body text-center">
+
+                    <h3>Authentication Check</h3>
+
+                    <p>
+                        Check login and authentication security.
+                    </p>
+
+                    <a href="{% url 'security_scan' %}?test=auth"
+                       class="btn btn-primary">
+                        Run Test
+                    </a>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

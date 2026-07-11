@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}Security Scan Results{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h1 class="text-center mb-5">
+        Security Scan Report
+    </h1>
+
+    <div class="card shadow-lg">
+
+        <div class="card-header bg-dark text-white">
+            <h3>{{ result.name }}</h3>
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-bordered">
+
+                <tr>
+                    <th width="25%">Test</th>
+                    <td>{{ result.name }}</td>
+                </tr>
+
+                <tr>
+                    <th>Status</th>
+
+                    <td>
+
+                        {% if result.status == "PASSED" %}
+                            <span class="badge bg-success">
+                                {{ result.status }}
+                            </span>
+
+                        {% elif result.status == "FAILED" %}
+                            <span class="badge bg-danger">
+                                {{ result.status }}
+                            </span>
+
+                        {% else %}
+                            <span class="badge bg-secondary">
+                                {{ result.status }}
+                            </span>
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Severity</th>
+
+                    <td>
+
+                        {% if result.severity == "HIGH" %}
+                            <span class="badge bg-danger">
+                                {{ result.severity }}
+                            </span>
+
+                        {% elif result.severity == "LOW" %}
+                            <span class="badge bg-warning text-dark">
+                                {{ result.severity }}
+                            </span>
+
+                        {% else %}
+                            <span class="badge bg-success">
+                                {{ result.severity }}
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <th>Description</th>
+                    <td>{{ result.description }}</td>
+                </tr>
+
+                <tr>
+                    <th>Recommendation</th>
+                    <td>{{ result.recommendation }}</td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <div class="mt-4">
+
+        <a href="{% url 'security_dashboard' %}"
+           class="btn btn-secondary">
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

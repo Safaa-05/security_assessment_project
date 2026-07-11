@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title %}Security Scan History{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h2 class="text-center mb-4">
+        Security Scan History
+    </h2>
+
+    <!-- Download PDF Button -->
+    <div class="text-center mb-4">
+
+        <a href="{% url 'download_report' %}"
+           class="btn btn-success">
+
+            📄 Download PDF Report
+
+        </a>
+
+    </div>
+
+    <table class="table table-bordered table-hover shadow">
+
+        <thead class="table-dark">
+
+            <tr>
+                <th>Test</th>
+                <th>Status</th>
+                <th>Severity</th>
+                <th>Description</th>
+                <th>Recommendation</th>
+                <th>Date & Time</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for result in results %}
+
+            <tr>
+
+                <td>{{ result.test_name }}</td>
+
+                <td>
+
+                    {% if result.status == "Passed" %}
+                        <span class="badge bg-success">
+                            Passed
+                        </span>
+                    {% else %}
+                        <span class="badge bg-danger">
+                            Failed
+                        </span>
+                    {% endif %}
+
+                </td>
+
+                <td>
+
+                    {% if result.severity == "Critical" %}
+
+                        <span class="badge bg-dark">
+                            {{ result.severity }}
+                        </span>
+
+                    {% elif result.severity == "High" %}
+
+                        <span class="badge bg-danger">
+                            {{ result.severity }}
+                        </span>
+
+                    {% elif result.severity == "Medium" %}
+
+                        <span class="badge bg-warning text-dark">
+                            {{ result.severity }}
+                        </span>
+
+                    {% else %}
+
+                        <span class="badge bg-success">
+                            {{ result.severity }}
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+                <td>{{ result.description }}</td>
+
+                <td>{{ result.recommendation }}</td>
+
+                <td>{{ result.scanned_at|date:"d M Y, h:i A" }}</td>
+
+            </tr>
+
+        {% empty %}
+
+            <tr>
+
+                <td colspan="6" class="text-center">
+
+                    No scan history available.
+
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    <div class="text-center mt-4">
+
+        <a href="{% url 'security_dashboard' %}"
+           class="btn btn-secondary">
+
+            ← Back to Dashboard
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}
